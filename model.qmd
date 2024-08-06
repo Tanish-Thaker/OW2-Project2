@@ -35,24 +35,12 @@ x <- x |>
          heal_rate = as.numeric(as.character(`Healing / 10min`)))
 
 x <- x |> 
-  select(win_rate, elim_rate, death_rate, KDA, pick_rate, dmg_rate, heal_rate)
+  select(win_rate, elim_rate, death_rate, KDA, pick_rate, dmg_rate, heal_rate) |>
+  drop_na()
 ```
-
-```{r}
-#| cache: true
-
-fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + pick_rate + dmg_rate + heal_rate,
-                 data = x,
-                 family = gaussian(),
-                 refresh = 0,
-                 silent = 2,
-                 seed = 9)
-```
-
 
 The formula used for the model is 
 $$ \text{win_rate} = \beta_0 + \text{elim_rate} \beta_1 + \text{death_rate} \beta_2 + \text{KDA} \beta_3 + \text{pick_rate} \beta_4 + \text{dmg_rate} \beta_5 + \text{heal_rate} \beta_6 $$
-
 
 
 ```{r}
@@ -71,6 +59,20 @@ data$Beta <- (data$u_95_CI - data$l_95_CI) / 2
 # Create the table
 kable(data[, c("Coefficient", "l_95_CI", "u_95_CI", "Beta")],
       col.names = c("Coefficient", "l-95% CI", "u-95% CI", "Beta"))
-
 ```
+
+As seen in the table above we can see that win rate is most affected by KDA and death_rate, while least affected by dmg_rate and heal_rate. 
+
+```{r}
+#| cache: true
+
+fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + pick_rate + dmg_rate + heal_rate,
+                 data = x,
+                 family = gaussian(),
+                 refresh = 0,
+                 silent = 2,
+                 seed = 9)
+fit_model
+```
+
 

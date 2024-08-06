@@ -169,11 +169,6 @@ window.Quarto = {
 </header>
 
 
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Rows containing NAs were excluded from the model.</code></pre>
-</div>
-</div>
 <p>The formula used for the model is <span class="math display">\[ \text{win_rate} = \beta_0 + \text{elim_rate} \beta_1 + \text{death_rate} \beta_2 + \text{KDA} \beta_3 + \text{pick_rate} \beta_4 + \text{dmg_rate} \beta_5 + \text{heal_rate} \beta_6 \]</span></p>
 <div class="cell">
 <div class="cell-output-display">
@@ -225,6 +220,35 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<p>As seen in the table above we can see that win rate is most affected by KDA and death_rate, while least affected by dmg_rate and heal_rate.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> Family: gaussian 
+  Links: mu = identity; sigma = identity 
+Formula: win_rate ~ elim_rate + death_rate + KDA + pick_rate + dmg_rate + heal_rate 
+   Data: x (Number of observations: 80) 
+  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+         total post-warmup draws = 4000
+
+Regression Coefficients:
+           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+Intercept    -10.62      7.68   -25.75     4.74 1.00     1672     2071
+elim_rate     -0.90      0.28    -1.46    -0.35 1.00     1955     2318
+death_rate     5.84      0.82     4.22     7.45 1.00     1765     2081
+KDA            4.50      0.60     3.30     5.62 1.00     2397     2114
+pick_rate      0.76      0.09     0.58     0.93 1.00     2460     2344
+dmg_rate       0.00      0.00    -0.00     0.00 1.00     2675     2696
+heal_rate      0.00      0.00    -0.00     0.00 1.00     3534     3002
+
+Further Distributional Parameters:
+      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sigma     2.43      0.21     2.07     2.87 1.00     2794     2589
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 
