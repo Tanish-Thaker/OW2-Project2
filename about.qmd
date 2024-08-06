@@ -1,0 +1,11 @@
+---
+title: "About"
+---
+
+My name is Tanish Thaker. I am a Junior student at Texas A&M University studying Statistics and Video Game Design and Development.
+
+My email is tanishthaker123@gmail.com
+
+The Github for this project is https://github.com/Tanish-Thaker/OW2-Project
+
+This is possible thanks to Kane’s Free Data Science Course https://bootcamp.davidkane.info

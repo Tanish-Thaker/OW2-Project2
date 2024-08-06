@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "OW2 Season 4",
+    "section": "",
+    "text": "The objective of this project is to identify win rates of OW2 characters based on statistics in the game. The data used for this project came from Kaggle, submitted by a data analyst working for Team 4 at Activision Blizzard (OW2 Team). The data, submitted after the conclusion of Season 4, is the most accurate available without directly working for Team 4. The model used for this project is a causal model, modeling the variable win_rate as a function of many different statistical factors present in OW2. Using metrics such as K/D/A ratio, pick rates, eliminations per 10 minutes, damage per 10 minutes, healing per 10 minutes, and deaths per 10 minutes, we will try to predict win rates based on these factors."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "My name is Tanish Thaker. I am a Junior student at Texas A&M University studying Statistics and Video Game Design and Development.\nMy email is tanishthaker123@gmail.com\nThe Github for this project is https://github.com/Tanish-Thaker/OW2-Project\nThis is possible thanks to Kane’s Free Data Science Course https://bootcamp.davidkane.info"
+  },
+  {
+    "objectID": "sources.html",
+    "href": "sources.html",
+    "title": "Sources",
+    "section": "",
+    "text": "The data used for this project came from Kaggle. The user that input this data is a data analyst that works for team 4 at Activision Blizzard (OW2 Team). They had submitted this data after the conclusion of season 4 making the data the most accurate data that can be found wiithout working direcctly for team 4.\nThe meta compositions featured from OWL in this project were collected from the OWL Midseason Madness Tournament which took place at the end of Season 4 of OW2."
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Model",
+    "section": "",
+    "text": "Warning: Rows containing NAs were excluded from the model.\n\n\nThe formula used for the model is \\[ \\text{win_rate} = \\beta_0 + \\text{elim_rate} \\beta_1 + \\text{death_rate} \\beta_2 + \\text{KDA} \\beta_3 + \\text{pick_rate} \\beta_4 + \\text{dmg_rate} \\beta_5 + \\text{heal_rate} \\beta_6 \\]\n\n\n\n\n\nCoefficient\nl-95% CI\nu-95% CI\nBeta\n\n\n\n\nelim_rate\n-1.46\n-0.35\n0.555\n\n\ndeath_rate\n4.22\n7.45\n1.615\n\n\nKDA\n3.30\n5.62\n1.160\n\n\npick_rate\n0.58\n0.93\n0.175\n\n\ndmg_rate\n0.00\n0.00\n0.000\n\n\nheal_rate\n0.00\n0.00\n0.000"
+  }
+]
