@@ -1,5 +1,50 @@
 ---
 title: "OW2 Season 4"
+execute: 
+  echo: false
 ---
 
-The objective of this project is to identify win rates of OW2 characters based on statistics in the game. The data used for this project came from Kaggle, submitted by a data analyst working for Team 4 at Activision Blizzard (OW2 Team). The data, submitted after the conclusion of Season 4, is the most accurate available without directly working for Team 4. The model used for this project is a causal model, modeling the variable win_rate as a function of many different statistical factors present in OW2. Using metrics such as K/D/A ratio, pick rates, eliminations per 10 minutes, damage per 10 minutes, healing per 10 minutes, and deaths per 10 minutes, we will try to predict win rates based on these factors. 
+The objective of this project is to identify win rates of OW2 characters based on statistics in the game. The data used for this project came from Kaggle, submitted by a data analyst working for Team 4 at Activision Blizzard (OW2 Team). The data, submitted after the conclusion of Season 4, is the most accurate available without directly working for Team 4. The model used for this project is a causal model, modeling the variable win_rate as a function of many different statistical factors present in OW2. Using metrics such as K/D/A ratio,  eliminations per 10 minutes, damage per 10 minutes, healing per 10 minutes, and deaths per 10 minutes, we will try to predict win rates based on these factors. Based on the collected data, the win rates of players tend to be the highest when their statistics for each variable is at the middle of that variables spectrum.
+
+```{r}
+#| message: false
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+#| message: false
+#| cache: true
+
+x <- read_csv("data/ow_data.csv")
+
+x <- x |> 
+  mutate(win_rate = as.numeric(as.character(`Win Rate, %`)), 
+         elim_rate = as.numeric(as.character(`Eliminations / 10min`)), 
+         death_rate = as.numeric(as.character(`Deaths / 10min`)),
+         KDA = as.numeric(as.character(`KDA Ratio`)),
+         dmg_rate = as.numeric(as.character(`Damage / 10min`)),
+         heal_rate = as.numeric(as.character(`Healing / 10min`)))
+
+x <- x |> 
+  select(win_rate, elim_rate, death_rate, KDA, dmg_rate, heal_rate) |>
+  drop_na()
+
+x_long <- x |> 
+  pivot_longer(cols = c(elim_rate, death_rate, KDA, dmg_rate, heal_rate), 
+               names_to = "variable", 
+               values_to = "value")
+```
+
+```{r}
+ggplot(x_long, aes(x = value, y = win_rate, color = variable)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Win Rate vs Variables", x = "Value", y = "Win Rate (%)") +
+  facet_wrap(~variable, scales = "free_x") +
+  theme_minimal()
+```

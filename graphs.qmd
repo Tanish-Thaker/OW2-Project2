@@ -1,0 +1,167 @@
+---
+title: "Graphs"
+format: html
+execute: 
+  echo: false
+---
+
+```{r}
+#| message: false
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(primer.data)
+library(brms)
+library(tidybayes)
+library(gtsummary)
+library(knitr)
+```
+
+
+```{r}
+#| message: false
+#| cache: true
+
+x <- read_csv("data/ow_data.csv")
+
+x <- x |> 
+  mutate(win_rate = as.numeric(as.character(`Win Rate, %`)), 
+         elim_rate = as.numeric(as.character(`Eliminations / 10min`)), 
+         death_rate = as.numeric(as.character(`Deaths / 10min`)),
+         KDA = as.numeric(as.character(`KDA Ratio`)),
+         dmg_rate = as.numeric(as.character(`Damage / 10min`)),
+         heal_rate = as.numeric(as.character(`Healing / 10min`)))
+
+x <- x |> 
+  select(win_rate, elim_rate, death_rate, KDA, dmg_rate, heal_rate) |>
+  drop_na()
+```
+
+```{r}
+#| cache: true
+#| message: false
+
+fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + dmg_rate + heal_rate,
+                 data = x,
+                 family = gaussian(),
+                 refresh = 0,
+                 silent = 2,
+                 seed = 9)
+```
+
+
+```{r}
+#| message: false
+
+draws1 <- fit_model |> 
+  add_epred_draws(newdata = x) |> 
+  ungroup() |> 
+  select(elim_rate, .epred) |>  
+  unnest(cols = everything()) |> 
+  janitor::clean_names()
+```
+
+```{r}
+#| cache: true
+
+draws1 |>
+  ggplot(aes(x = elim_rate, y = epred)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Elimination Rate Compared to Prediction",
+       x = "Elimination Rate",
+       y = "Win Rate Prediction")
+```
+
+```{r}
+#| message: false
+
+draws2 <- fit_model |> 
+  add_epred_draws(newdata = x) |> 
+  ungroup() |> 
+  select(death_rate, .epred) |>  
+  unnest(cols = everything()) |> 
+  janitor::clean_names()
+```
+
+```{r}
+#| cache: true
+
+draws2 |>
+  ggplot(aes(x = death_rate, y = epred)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Death Rate Compared to Prediction",
+       x = "Death Rate",
+       y = "Win Rate Prediction")
+```
+
+```{r}
+#| message: false
+
+draws3 <- fit_model |> 
+  add_epred_draws(newdata = x) |> 
+  ungroup() |> 
+  select(KDA, .epred) |>  
+  unnest(cols = everything()) |> 
+  janitor::clean_names()
+```
+
+```{r}
+#| cache: true
+
+draws3 |>
+  ggplot(aes(x = kda, y = epred)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "K/D/A Compared to Prediction",
+       x = "K/D/A Rate",
+       y = "Win Rate Prediction")
+```
+
+```{r}
+#| message: false
+
+draws4 <- fit_model |> 
+  add_epred_draws(newdata = x) |> 
+  ungroup() |> 
+  select(dmg_rate, .epred) |>  
+  unnest(cols = everything()) |> 
+  janitor::clean_names()
+```
+
+```{r}
+#| cache: true
+
+draws4 |>
+  ggplot(aes(x = dmg_rate, y = epred)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Damage Rate Compared to Prediction",
+       x = "Damage Rate",
+       y = "Win Rate Prediction")
+```
+
+```{r}
+#| message: false
+
+draws5 <- fit_model |> 
+  add_epred_draws(newdata = x) |> 
+  ungroup() |> 
+  select(heal_rate, .epred) |>  
+  unnest(cols = everything()) |> 
+  janitor::clean_names()
+```
+
+```{r}
+#| cache: true
+
+draws5 |>
+  ggplot(aes(x = heal_rate, y = epred)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Heal Rate Compared to Prediction",
+       x = "Heal Rate",
+       y = "Win Rate Prediction")
+```

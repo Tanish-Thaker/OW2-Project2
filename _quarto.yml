@@ -7,7 +7,9 @@ website:
     left:
       - href: index.qmd
         text: OW2 Season 4
+      - variables.qmd
       - model.qmd
+      - graphs.qmd
       - sources.qmd
       - about.qmd
 format:

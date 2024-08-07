@@ -30,27 +30,26 @@ x <- x |>
          elim_rate = as.numeric(as.character(`Eliminations / 10min`)), 
          death_rate = as.numeric(as.character(`Deaths / 10min`)),
          KDA = as.numeric(as.character(`KDA Ratio`)),
-         pick_rate = as.numeric(as.character(`Pick Rate, %`)),
          dmg_rate = as.numeric(as.character(`Damage / 10min`)),
          heal_rate = as.numeric(as.character(`Healing / 10min`)))
 
 x <- x |> 
-  select(win_rate, elim_rate, death_rate, KDA, pick_rate, dmg_rate, heal_rate) |>
+  select(win_rate, elim_rate, death_rate, KDA, dmg_rate, heal_rate) |>
   drop_na()
 ```
 
 The formula used for the model is 
-$$ \text{win_rate} = \beta_0 + \text{elim_rate} \beta_1 + \text{death_rate} \beta_2 + \text{KDA} \beta_3 + \text{pick_rate} \beta_4 + \text{dmg_rate} \beta_5 + \text{heal_rate} \beta_6 $$
+$$ \text{win_rate} = \beta_0 + \text{elim_rate} \beta_1 + \text{death_rate} \beta_2 + \text{KDA} \beta_3 + \text{dmg_rate} \beta_4 + \text{heal_rate} \beta_5 $$
 
 
 ```{r}
 # Data
 data <- data.frame(
-  Coefficient = c( "elim_rate", "death_rate", "KDA", "pick_rate", "dmg_rate", "heal_rate"),
-  Estimate = c(-0.90, 5.84, 4.50, 0.76, 0.00, 0.00),
-  Est.Error = c(0.28, 0.82, 0.60, 0.09, 0.00, 0.00),
-  l_95_CI = c( -1.46, 4.22, 3.30, 0.58, -0.00, -0.00),
-  u_95_CI = c( -0.35, 7.45, 5.62, 0.93, 0.00, 0.00)
+  Coefficient = c( "elim_rate", "death_rate", "KDA", "dmg_rate", "heal_rate"),
+  Estimate = c(-0.90, 5.84, 4.50, 0.00, 0.00),
+  Est.Error = c(0.28, 0.82, 0.60, 0.00, 0.00),
+  l_95_CI = c( -1.46, 4.22, 3.30, -0.00, -0.00),
+  u_95_CI = c( -0.35, 7.45, 5.62, 0.00, 0.00)
 )
 
 # Calculate Beta
@@ -65,14 +64,20 @@ As seen in the table above we can see that win rate is most affected by KDA and 
 
 ```{r}
 #| cache: true
+#| message: false
 
-fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + pick_rate + dmg_rate + heal_rate,
+fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + dmg_rate + heal_rate,
                  data = x,
                  family = gaussian(),
                  refresh = 0,
                  silent = 2,
                  seed = 9)
-fit_model
 ```
+
+```{r}
+fixef(fit_model)
+pp_check(fit_model)
+```
+
 
 

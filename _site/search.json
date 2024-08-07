@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "OW2 Season 4",
+    "objectID": "variables.html",
+    "href": "variables.html",
+    "title": "Variables",
     "section": "",
-    "text": "The objective of this project is to identify win rates of OW2 characters based on statistics in the game. The data used for this project came from Kaggle, submitted by a data analyst working for Team 4 at Activision Blizzard (OW2 Team). The data, submitted after the conclusion of Season 4, is the most accurate available without directly working for Team 4. The model used for this project is a causal model, modeling the variable win_rate as a function of many different statistical factors present in OW2. Using metrics such as K/D/A ratio, pick rates, eliminations per 10 minutes, damage per 10 minutes, healing per 10 minutes, and deaths per 10 minutes, we will try to predict win rates based on these factors."
+    "text": "The variables that are used in this project are:\nwin_rate- How often a player wins their games.\nelim_rate- How many kills and damage assists a player gets on average in 10 minutes.\ndeath_rate- How many deaths a player gets on average in 10 minutes.\nKDA- Average of all kills and assists divided by deaths for all mathches played by a player.\ndmg_rate- How much damage a player gets on average in 10 minutes.\nheal_rate- How much healing a player gives on average in 10 minutes."
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Model",
+    "section": "",
+    "text": "The formula used for the model is \\[ \\text{win_rate} = \\beta_0 + \\text{elim_rate} \\beta_1 + \\text{death_rate} \\beta_2 + \\text{KDA} \\beta_3 + \\text{dmg_rate} \\beta_4 + \\text{heal_rate} \\beta_5 \\]\n\n\n\n\n\nCoefficient\nl-95% CI\nu-95% CI\nBeta\n\n\n\n\nelim_rate\n-1.46\n-0.35\n0.555\n\n\ndeath_rate\n4.22\n7.45\n1.615\n\n\nKDA\n3.30\n5.62\n1.160\n\n\ndmg_rate\n0.00\n0.00\n0.000\n\n\nheal_rate\n0.00\n0.00\n0.000\n\n\n\n\n\nAs seen in the table above we can see that win rate is most affected by KDA and death_rate, while least affected by dmg_rate and heal_rate.\n\n\n                Estimate    Est.Error         Q2.5        Q97.5\nIntercept  25.2452662192 8.8843557205  7.569199668 4.273394e+01\nelim_rate  -0.4786358747 0.4002847002 -1.256159182 3.530938e-01\ndeath_rate  1.9046214774 0.9314726649  0.080521691 3.732854e+00\nKDA         4.2265901030 0.8367554532  2.545611165 5.847000e+00\ndmg_rate    0.0004117674 0.0010263005 -0.001651960 2.418872e-03\nheal_rate  -0.0006905572 0.0005403291 -0.001755682 3.563178e-04\n\n\nUsing 10 posterior draws for ppc type 'dens_overlay' by default."
   },
   {
     "objectID": "about.html",
@@ -14,17 +21,17 @@
     "text": "My name is Tanish Thaker. I am a Junior student at Texas A&M University studying Statistics and Video Game Design and Development.\nMy email is tanishthaker123@gmail.com\nThe Github for this project is https://github.com/Tanish-Thaker/OW2-Project\nThis is possible thanks to Kane’s Free Data Science Course https://bootcamp.davidkane.info"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "OW2 Season 4",
+    "section": "",
+    "text": "The objective of this project is to identify win rates of OW2 characters based on statistics in the game. The data used for this project came from Kaggle, submitted by a data analyst working for Team 4 at Activision Blizzard (OW2 Team). The data, submitted after the conclusion of Season 4, is the most accurate available without directly working for Team 4. The model used for this project is a causal model, modeling the variable win_rate as a function of many different statistical factors present in OW2. Using metrics such as K/D/A ratio, eliminations per 10 minutes, damage per 10 minutes, healing per 10 minutes, and deaths per 10 minutes, we will try to predict win rates based on these factors. Based on the collected data, the win rates of players tend to be the highest when their statistics for each variable is at the middle of that variables spectrum."
+  },
+  {
     "objectID": "sources.html",
     "href": "sources.html",
     "title": "Sources",
     "section": "",
     "text": "The data used for this project came from Kaggle. The user that input this data is a data analyst that works for team 4 at Activision Blizzard (OW2 Team). They had submitted this data after the conclusion of season 4 making the data the most accurate data that can be found wiithout working direcctly for team 4.\nThe meta compositions featured from OWL in this project were collected from the OWL Midseason Madness Tournament which took place at the end of Season 4 of OW2."
-  },
-  {
-    "objectID": "model.html",
-    "href": "model.html",
-    "title": "Model",
-    "section": "",
-    "text": "The formula used for the model is \\[ \\text{win_rate} = \\beta_0 + \\text{elim_rate} \\beta_1 + \\text{death_rate} \\beta_2 + \\text{KDA} \\beta_3 + \\text{pick_rate} \\beta_4 + \\text{dmg_rate} \\beta_5 + \\text{heal_rate} \\beta_6 \\]\n\n\n\n\n\nCoefficient\nl-95% CI\nu-95% CI\nBeta\n\n\n\n\nelim_rate\n-1.46\n-0.35\n0.555\n\n\ndeath_rate\n4.22\n7.45\n1.615\n\n\nKDA\n3.30\n5.62\n1.160\n\n\npick_rate\n0.58\n0.93\n0.175\n\n\ndmg_rate\n0.00\n0.00\n0.000\n\n\nheal_rate\n0.00\n0.00\n0.000\n\n\n\n\n\nAs seen in the table above we can see that win rate is most affected by KDA and death_rate, while least affected by dmg_rate and heal_rate.\n\n\n Family: gaussian \n  Links: mu = identity; sigma = identity \nFormula: win_rate ~ elim_rate + death_rate + KDA + pick_rate + dmg_rate + heal_rate \n   Data: x (Number of observations: 80) \n  Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;\n         total post-warmup draws = 4000\n\nRegression Coefficients:\n           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nIntercept    -10.62      7.68   -25.75     4.74 1.00     1672     2071\nelim_rate     -0.90      0.28    -1.46    -0.35 1.00     1955     2318\ndeath_rate     5.84      0.82     4.22     7.45 1.00     1765     2081\nKDA            4.50      0.60     3.30     5.62 1.00     2397     2114\npick_rate      0.76      0.09     0.58     0.93 1.00     2460     2344\ndmg_rate       0.00      0.00    -0.00     0.00 1.00     2675     2696\nheal_rate      0.00      0.00    -0.00     0.00 1.00     3534     3002\n\nFurther Distributional Parameters:\n      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS\nsigma     2.43      0.21     2.07     2.87 1.00     2794     2589\n\nDraws were sampled using sampling(NUTS). For each parameter, Bulk_ESS\nand Tail_ESS are effective sample size measures, and Rhat is the potential\nscale reduction factor on split chains (at convergence, Rhat = 1)."
   }
 ]

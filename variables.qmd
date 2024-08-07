@@ -1,0 +1,18 @@
+---
+title: "Variables"
+format: html
+---
+
+The variables that are used in this project are:
+
+win_rate- How often a player wins their games.
+
+elim_rate- How many kills and damage assists a player gets on average in 10 minutes.
+
+death_rate- How many deaths a player gets on average in 10 minutes.
+
+KDA- Average of all kills and assists divided by deaths for all mathches played by a player.
+
+dmg_rate- How much damage a player gets on average in 10 minutes.
+
+heal_rate- How much healing a player gives on average in 10 minutes.
