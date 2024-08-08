@@ -1,1 +1,1 @@
-Sitemap: https://4f3e0c1a-5c2a-41f2-b631-db36c5834814.netlify.app/sitemap.xml
+Sitemap: https://tanish-thaker.quarto.pub/ow2-win-rate-predictions/sitemap.xml

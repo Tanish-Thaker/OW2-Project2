@@ -38,9 +38,9 @@ x <- x |>
   drop_na()
 ```
 
-The formula used for the model is 
-$$ \text{win_rate} = \beta_0 + \text{elim_rate} \beta_1 + \text{death_rate} \beta_2 + \text{KDA} \beta_3 + \text{dmg_rate} \beta_4 + \text{heal_rate} \beta_5 $$
+The formula used for the model is:
 
+win_rate = beta_0 + elim_rate(beta_1) + death_rate(beta_2) + KDA(beta_3) + dmg_rate(beta_4) + heal_rate(beta_5) 
 
 ```{r}
 # Data
@@ -74,10 +74,6 @@ fit_model <- brm(formula = win_rate ~ elim_rate + death_rate + KDA + dmg_rate + 
                  seed = 9)
 ```
 
-```{r}
-fixef(fit_model)
-pp_check(fit_model)
-```
 
 
 
