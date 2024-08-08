@@ -1,5 +1,5 @@
 ---
-title: "OW2 Season 4"
+title: "OW2 Season 4 Win Rate Predictions"
 execute: 
   echo: false
 ---
